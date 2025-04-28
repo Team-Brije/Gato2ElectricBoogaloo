@@ -69,7 +69,7 @@ public class ConnectionManager : MonoBehaviour
         webSocket.DispatchMessageQueue();
     }
 
-    async void SendWebSocketMessage(string thing)
+    public async void SendWebSocketMessage(string thing)
     {
         if (webSocket.State == WebSocketState.Open)
         {

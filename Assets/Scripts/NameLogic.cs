@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,10 +11,17 @@ public class NameLogic : MonoBehaviour
     ConnectionManager wsManager;
     string[] users;
     string tempUname;
+    public Coroutine QOLcor;
     private void Start()
     {
         username = null;
         wsManager = ConnectionManager.Instance;
+        QOLcor = StartCoroutine(QOL());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(QOLcor);
     }
 
     public void CheckValue()
@@ -28,7 +36,6 @@ public class NameLogic : MonoBehaviour
 
     public void ValidateUsername(string uname)
     {
-        tempUname = uname;
         //Null String
         if (string.IsNullOrEmpty(uname))
         {
@@ -36,19 +43,29 @@ public class NameLogic : MonoBehaviour
             return;
         }
         //Username Already Taken
-        string[] users = wsManager.GetPlayerList();
-
+        
+        users = wsManager.GetPlayerList();
         foreach (string usernames in users)
         {
-            if (usernames == tempUname)
+            if (usernames == uname)
             {
                 Debug.Log("USERNAME ALREADY TAKEN");
                 return;
             }
         }
-        username = tempUname;
-        wsManager.SendMessage("1|" + username);
+        
+        username = uname;
+        wsManager.SendWebSocketMessage("1|" + username);
         Debug.Log("USERNAME SAVED SUCCESFULLY");
         SceneManager.LoadScene("Lobby");
+    }
+    
+    public IEnumerator QOL()
+    {
+        while (true)
+        {
+            users = wsManager.GetPlayerList();
+            yield return new WaitForSeconds(1);
+        }
     }
 }

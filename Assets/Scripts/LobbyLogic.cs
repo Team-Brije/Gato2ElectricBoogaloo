@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LobbyLogic : MonoBehaviour
@@ -9,6 +10,12 @@ public class LobbyLogic : MonoBehaviour
         username = NameLogic.username;
         Debug.Log(username);
     }
+
+    public IEnumerator UpdateLobby()
+    {
+        yield return new WaitForSeconds(1);
+    }
+
 
     // Update is called once per frame
     void Update()
