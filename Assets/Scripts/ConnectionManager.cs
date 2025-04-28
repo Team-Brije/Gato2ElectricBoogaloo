@@ -1,10 +1,16 @@
 using UnityEngine;
 using NativeWebSocket;
+using System;
 
 public class ConnectionManager : MonoBehaviour
 {
+    public static event Action<string> OnQuestion;
+    public static event Action OnReject;
+    public static event Action OnAccept;
     WebSocket webSocket;
     string[] users;
+    public string currentLobbyInquirer;
+    public string otherPlayer;
 
     private static ConnectionManager instance;
 
@@ -53,9 +59,27 @@ public class ConnectionManager : MonoBehaviour
                     users = null;
                     users = newmessage[1].Split("-");
                     break;
-                    
+                case "3":
+                    currentLobbyInquirer = newmessage[1];
+                    OnQuestion?.Invoke(currentLobbyInquirer);
+                    break;
+                case "4":
+                    if (newmessage[2] == "1")
+                    {
+                        otherPlayer = newmessage[1];
+                        OnAccept?.Invoke();
+                    }
+                    if (newmessage[2] == "0")
+                    {
+                        OnReject?.Invoke();
+                    }
+                    break;
+                //5 - Reset 
+                //6 - Get Board
+                //7 - Turn
+                //ya no quiero ;w;
             }
-            Debug.Log(message);
+            //Debug.Log(message);
         };
 
         await webSocket.Connect();

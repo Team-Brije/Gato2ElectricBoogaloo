@@ -85,14 +85,14 @@ wss.on('connection', function connection(ws) {
                 user.connection.send('2|'+lista);
             break;
 
-            case '400': // Mandar mensaje directo
+            case '3': // Mandar mensaje directo
                 let u=true;
 
                 users.forEach(us => {
                     if(us.username === info[1])
                     {
                         u=false;
-                        us.connection.send("400|"+info[2]);
+                        us.connection.send("3|"+info[2]);
                     }
                 });
 
@@ -101,7 +101,23 @@ wss.on('connection', function connection(ws) {
                 }
 
                 break;
-            
+
+                case '4': // Mandar mensaje directo
+                let ua=true;
+
+                users.forEach(us => {
+                    if(us.username === info[1])
+                    {
+                        ua=false;
+                        us.connection.send("4|"+info[1]+"|"+info[3]);
+                    }
+                });
+
+                if(ua == true){
+                    user.connection.send("404|User not found");
+                }
+
+                break;
                 case '404': // Mandar mensaje directo
                 break;
 

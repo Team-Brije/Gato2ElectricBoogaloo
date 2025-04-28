@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class NameLogic : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class NameLogic : MonoBehaviour
     string[] users;
     string tempUname;
     public Coroutine QOLcor;
+    public TextMeshProUGUI ErrorText;
+
     private void Start()
     {
         username = null;
@@ -37,9 +38,10 @@ public class NameLogic : MonoBehaviour
     public void ValidateUsername(string uname)
     {
         //Null String
-        if (string.IsNullOrEmpty(uname))
+        if (string.IsNullOrEmpty(uname) || uname == "No name")
         {
             Debug.Log("EMPTY USERNAME");
+            ErrorText.text = "USERNAME CANNOT BE EMPTY";
             return;
         }
         //Username Already Taken
@@ -50,6 +52,7 @@ public class NameLogic : MonoBehaviour
             if (usernames == uname)
             {
                 Debug.Log("USERNAME ALREADY TAKEN");
+                ErrorText.text = "USERNAME ALREADY TAKEN";
                 return;
             }
         }
