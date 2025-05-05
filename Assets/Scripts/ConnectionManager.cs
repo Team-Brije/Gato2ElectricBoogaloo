@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using NativeWebSocket;
 using System;
 
@@ -11,6 +11,9 @@ public class ConnectionManager : MonoBehaviour
     string[] users;
     public string currentLobbyInquirer;
     public string otherPlayer;
+    public string filedir;
+    string[] chatInfo;
+
 
     private static ConnectionManager instance;
 
@@ -74,10 +77,17 @@ public class ConnectionManager : MonoBehaviour
                         OnReject?.Invoke();
                     }
                     break;
-                //5 - Reset 
-                //6 - Get Board
-                //7 - Turn
-                //ya no quiero ;w;
+                case "5": //Check&Create ChatRoom
+                    filedir = newmessage[1];
+                    break;
+                case "6":
+                    chatInfo = newmessage[1].Split('₡');
+                    Debug.Log(chatInfo.Length);
+                    break;
+                case "7":
+                    break;
+                //6 - Receive Message
+                //7 - Send Message
             }
             //Debug.Log(message);
         };
@@ -100,6 +110,19 @@ public class ConnectionManager : MonoBehaviour
             await webSocket.SendText(thing);
         }
     }
+
+    [ContextMenu("5")]
+    public void CheckForRoom()
+    {
+        SendWebSocketMessage("5|" + currentLobbyInquirer + "|" + NameLogic.username);
+    }
+    [ContextMenu("6")]
+    public void GetChat()
+    {
+        //SendWebSocketMessage("6|"+filedir);
+        SendWebSocketMessage("6|./Chats/1.json");
+    }
+
 
     public string[] GetPlayerList()
     {

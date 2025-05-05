@@ -5,6 +5,10 @@ const users = [];
 const httpPort = 80;
 const websockPort = 8080;
 
+var fs = require('fs');
+var directory = "./Chats/";
+
+
 class User{
     constructor()
     {
@@ -85,7 +89,7 @@ wss.on('connection', function connection(ws) {
                 user.connection.send('2|'+lista);
             break;
 
-            case '3': // Mandar mensaje directo
+            case '3': // Handshake
                 let u=true;
 
                 users.forEach(us => {
@@ -102,7 +106,7 @@ wss.on('connection', function connection(ws) {
 
                 break;
 
-                case '4': // Mandar mensaje directo
+                case '4': // Answer
                 let ua=true;
 
                 users.forEach(us => {
@@ -118,6 +122,112 @@ wss.on('connection', function connection(ws) {
                 }
 
                 break;
+
+                case '5': // Check if it exists
+
+                let chatexists = true
+                let player1 = info[1];
+                let player2 = info[2];
+
+                var chats = fs.readdirSync(directory);
+
+                for (const element of chats) {
+                    let tempchat = fs.readFileSync(directory+element,"utf-8");
+                    let words = JSON.parse(tempchat);
+                    let data = words.data;
+                    let player1temp = data[1];
+                    let player2temp = data[2];
+                    
+                    if(player1temp === player1 && player2temp === player2)
+                    {
+                        let filedir = directory + element;
+                        chatexists = true;
+                        console.log("CHAT FOUND");
+                        users.forEach(us => {
+                            if(us.username === player1)
+                            {
+                                ub=false;
+                                us.connection.send("5|"+filedir);
+                            }
+                        });
+                        users.forEach(us => {
+                            if(us.username === player2)
+                            {
+                                ub=false;
+                                us.connection.send("5|"+filedir);
+                            }
+                        });
+                        break;
+                    }
+                    else if(player1temp === player2 && player2temp === player1)
+                    {
+                        let filedir = directory + element;
+                        chatexists = true;
+                        console.log("CHAT FOUND");
+                        users.forEach(us => {
+                            if(us.username === player1)
+                            {
+                                ub=false;
+                                us.connection.send("5|"+filedir);
+                            }
+                        });
+                        users.forEach(us => {
+                            if(us.username === player2)
+                            {
+                                ub=false;
+                                us.connection.send("5|"+filedir);
+                            }
+                        });
+                        break;
+                    }
+                    else 
+                    {
+                        chatexists = false;
+                    }
+                }
+                if (chatexists == false)
+                {
+                    let number = 0;
+                    number = chats.length+1;
+                    let newJSON = {
+                        "data":[number,player1,player2],
+                        "chats":[]
+                    };
+                    let datamoment = JSON.stringify(newJSON)
+                    fs.writeFileSync(directory + number + ".json",datamoment);
+                    let newfiledir = directory + number + ".json";
+                    users.forEach(us => {
+                        if(us.username === player2)
+                        {
+                            ub=false;
+                            us.connection.send("5|"+newfiledir);
+                        }
+                    });
+                    users.forEach(us => {
+                        if(us.username === player1)
+                        {
+                            ub=false;
+                            us.connection.send("5|"+newfiledir);
+                        }
+                    });
+                }
+                break;
+
+                case '6':
+
+                direc = info[1];
+
+                let chatmoment = fs.readFileSync(direc, 'utf-8');
+
+                let datafromChat = JSON.parse(chatmoment);
+
+                let chatData = datafromChat.chats;
+
+                user.connection.send('6|'+chatData);
+
+                    break;
+
+                
                 case '404': // Mandar mensaje directo
                 break;
 
