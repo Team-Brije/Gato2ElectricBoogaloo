@@ -12,7 +12,9 @@ public class ConnectionManager : MonoBehaviour
     public string currentLobbyInquirer;
     public string otherPlayer;
     public string filedir;
+    public string[] SendMessage;
     string[] chatInfo;
+    
 
 
     private static ConnectionManager instance;
@@ -85,7 +87,10 @@ public class ConnectionManager : MonoBehaviour
                     Debug.Log(chatInfo.Length);
                     break;
                 case "7":
+                    SendMessage = newmessage[1].Split('₡');
+
                     break;
+                
                 //6 - Receive Message
                 //7 - Send Message
             }

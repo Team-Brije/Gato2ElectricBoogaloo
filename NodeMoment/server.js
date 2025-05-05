@@ -225,6 +225,20 @@ wss.on('connection', function connection(ws) {
 
                 user.connection.send('6|'+chatData);
 
+                break;
+
+                case '7':
+
+                direc = info[1];
+
+                let chatMoment = fs.readFileSync(direc, 'utf-8')
+
+                let datafromChat1 = JSON.parse(chatMoment);
+
+                let chatData1 = datafromChat1.chats;
+
+                user.connection.send('7|'+chatData1);
+
                     break;
 
                 
