@@ -228,11 +228,43 @@ wss.on('connection', function connection(ws) {
                 break;
 
                 case '7':
-                    
+
+                newMsg = info[3]
+
+                direc2 = "./Chats/1.json";
+
+                let chatmoment2 = fs.readFileSync("./Chats/1.json", 'utf-8');
+
+                let datafromChat2 = JSON.parse(chatmoment2);
+                
+                datafromChat2.chats = datafromChat2.chats+"₡"+info[1]+"₡"+newMsg;
+
+                let newJSON = JSON.stringify(datafromChat2)
+                
+                fs.writeFileSync(direc2,newJSON);
+
+                users.forEach(us => {
+                    if(us.username === info[1])
+                    {
+                        us.connection.send("6|"+info[2]);
+                    }
+                });
+
+                    /*
                     console.log(info[1]);
                     let direcMsg = "./Chats/1.json";
+                    let chatrecived = fs.readFileSync(direcMsg, 'utf-8');
+
+                    let chatgetter = JSON.parse(chatrecived);
+                    let chata = chatgetter.chats;
+                    console.log(chata)*/
+                    /*
                     let chatmoment2 = fs.readFileSync(direcMsg, 'utf-8');
-                    let datafromChat2 = JSON.parse(chatmoment2);
+                    let datafromChat2 = JSON.stringify(chatmoment2);
+                    */
+                    //console.log(chatmoment2)
+                    //console.log(info[1]);
+                    //console.log(datafromChat2)
                     
                 
                     

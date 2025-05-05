@@ -21,6 +21,7 @@ public class LobbyLogic : MonoBehaviour
     public GameObject curtain;
     public GameObject question;
     public TextMeshProUGUI usertext;
+    public GameObject chat;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,6 +83,7 @@ public class LobbyLogic : MonoBehaviour
                 //Game dies if we remove a player from the list
 
             }
+
         }
     }
 
@@ -101,6 +103,10 @@ public class LobbyLogic : MonoBehaviour
     public void Accept()
     {
         Debug.Log("GAME ACCEPTED");
+        curtain.SetActive(false);
+        waiter.SetActive(false);
+        chat.SetActive(true);
+        wsManager.GetChat();
         //SceneManager.LoadScene("uwu");
     }
 

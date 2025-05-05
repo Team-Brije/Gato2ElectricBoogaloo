@@ -13,7 +13,7 @@ public class ConnectionManager : MonoBehaviour
     public string otherPlayer;
     public string filedir;
     public string[] SendMessage;
-    string[] chatInfo;
+    public string[] chatInfo;
     
 
 
