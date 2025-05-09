@@ -231,9 +231,9 @@ wss.on('connection', function connection(ws) {
 
                 newMsg = info[3]
 
-                direc2 = "./Chats/1.json";
+                direc2 = info[4];
 
-                let chatmoment2 = fs.readFileSync("./Chats/1.json", 'utf-8');
+                let chatmoment2 = fs.readFileSync(direc2, 'utf-8');
 
                 let datafromChat2 = JSON.parse(chatmoment2);
                 

@@ -25,6 +25,7 @@ public class LobbyButtonConnection : MonoBehaviour
     {
         wsManager.SendWebSocketMessage("4|" + wsManager.currentLobbyInquirer + "|" + NameLogic.username+"|1");
         wsManager.otherPlayer = wsManager.currentLobbyInquirer;
+        wsManager.CheckForRoom();
         //Add scenemanager 
     }
 
