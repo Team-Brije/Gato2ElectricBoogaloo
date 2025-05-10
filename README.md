@@ -35,4 +35,5 @@ _6|"DirectorioAlmacenadoDeLaSala"_
 _7|"JugadorLocal"|"JugadorContrario"|"Mensaje"₡"HoraDelDía"₡"Fecha"|"DirectorioDelArchivo"_
 
 **Uso:** Se usa para mandar el mensaje y actualizar los chats de los contrarios
-
+## 
+![Baka](https://media.tenor.com/gWxI_NRxq_sAAAAC/triple-baka-vocaloid.gif)
