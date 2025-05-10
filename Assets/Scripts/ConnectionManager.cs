@@ -85,6 +85,7 @@ public class ConnectionManager : MonoBehaviour
                     filedir = newmessage[1];
                     break;
                 case "6":
+                    chatInfo = null;
                     chatInfo = newmessage[1].Split('₡');
                     break;
                 case "7":

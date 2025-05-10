@@ -36,30 +36,31 @@ public class Chat : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
 
             wsManager.GetChat();
-            
 
-            //Debug.Log(wsManager.chatInfo);
-
-            for (int indexChatUpdate = 0; indexChatUpdate < wsManager.chatInfo.Length; indexChatUpdate += 4)
+            //Debug.Log(wsManager.filedir);
+            if (wsManager.chatInfo.Length != 0)
             {
-                //wsManager.GetChat();
-                GameObject newPrefabChat = prefabChat;
-                newPrefabChat.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate];
-                newPrefabChat.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+3];
-                newPrefabChat.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+2];
-                newPrefabChat.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+1];
-                string iddate = wsManager.chatInfo[indexChatUpdate+2]+wsManager.chatInfo[indexChatUpdate+3];
-                if (!messages.Contains(iddate))
+                for (int indexChatUpdate = 0; indexChatUpdate < wsManager.chatInfo.Length; indexChatUpdate += 4)
                 {
-                    messages.Add(iddate);
-                    Instantiate(newPrefabChat, contenido.transform);
-                    contenido.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 325);
-                }
-                //string cosa = wsManager.chatInfo[indexChatUpdate]+wsManager.chatInfo[indexChatUpdate+1]+wsManager.chatInfo[indexChatUpdate+2]+wsManager.chatInfo[indexChatUpdate+3];
+                    //wsManager.GetChat();
+                    GameObject newPrefabChat = prefabChat;
+                    newPrefabChat.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate];
+                    newPrefabChat.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+3];
+                    newPrefabChat.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+2];
+                    newPrefabChat.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+1];
+                    string iddate = wsManager.chatInfo[indexChatUpdate+2]+wsManager.chatInfo[indexChatUpdate+3];
+                    if (!messages.Contains(iddate))
+                    {
+                        messages.Add(iddate);
+                        Instantiate(newPrefabChat, contenido.transform);
+                        contenido.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 325);
+                    }
+                    //string cosa = wsManager.chatInfo[indexChatUpdate]+wsManager.chatInfo[indexChatUpdate+1]+wsManager.chatInfo[indexChatUpdate+2]+wsManager.chatInfo[indexChatUpdate+3];
 
+                }
             }
         }
     }
