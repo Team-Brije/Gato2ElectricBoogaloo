@@ -18,6 +18,7 @@ public class LobbyButtonConnection : MonoBehaviour
     public void SendHandshake()
     {
         wsManager.SendWebSocketMessage("3|"+lobbyname+"|"+NameLogic.username);
+        wsManager.otherPlayer = lobbyname;
         OnHandshake?.Invoke();
     }
 

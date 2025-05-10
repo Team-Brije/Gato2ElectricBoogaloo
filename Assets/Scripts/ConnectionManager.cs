@@ -66,6 +66,7 @@ public class ConnectionManager : MonoBehaviour
                     break;
                 case "3":
                     currentLobbyInquirer = newmessage[1];
+                    //otherPlayer = currentLobbyInquirer;
                     OnQuestion?.Invoke(currentLobbyInquirer);
                     break;
                 case "4":
@@ -73,6 +74,7 @@ public class ConnectionManager : MonoBehaviour
                     {
                         otherPlayer = newmessage[1];
                         OnAccept?.Invoke();
+                        CheckForRoom();
                     }
                     if (newmessage[2] == "0")
                     {
@@ -118,7 +120,7 @@ public class ConnectionManager : MonoBehaviour
     [ContextMenu("5")]
     public void CheckForRoom()
     {
-        SendWebSocketMessage("5|" + currentLobbyInquirer + "|" + NameLogic.username);
+        SendWebSocketMessage("5|" + otherPlayer + "|" + NameLogic.username);
     }
     [ContextMenu("6")]
     public void GetChat()

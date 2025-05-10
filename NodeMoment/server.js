@@ -113,7 +113,7 @@ wss.on('connection', function connection(ws) {
                     if(us.username === info[1])
                     {
                         ua=false;
-                        us.connection.send("4|"+info[1]+"|"+info[3]);
+                        us.connection.send("4|"+info[2]+"|"+info[3]);
                     }
                 });
 
@@ -191,7 +191,7 @@ wss.on('connection', function connection(ws) {
                     number = chats.length+1;
                     let newJSON = {
                         "data":[number,player1,player2],
-                        "chats":[]
+                        "chats":"ADMIN₡Welcome to the chat Room!₡Have Fun!₡Be Respectful!"
                     };
                     let datamoment = JSON.stringify(newJSON)
                     fs.writeFileSync(directory + number + ".json",datamoment);
@@ -237,7 +237,10 @@ wss.on('connection', function connection(ws) {
 
                 let datafromChat2 = JSON.parse(chatmoment2);
                 
+
                 datafromChat2.chats = datafromChat2.chats+"₡"+info[1]+"₡"+newMsg;
+                
+                
 
                 let newJSON = JSON.stringify(datafromChat2)
                 
@@ -247,6 +250,13 @@ wss.on('connection', function connection(ws) {
                     if(us.username === info[1])
                     {
                         us.connection.send("6|"+info[2]);
+                    }
+                });
+
+                users.forEach(us => {
+                    if(us.username === info[2])
+                    {
+                        us.connection.send("6|"+info[1]);
                     }
                 });
 

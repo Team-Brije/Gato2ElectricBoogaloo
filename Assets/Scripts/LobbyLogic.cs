@@ -106,7 +106,9 @@ public class LobbyLogic : MonoBehaviour
         curtain.SetActive(false);
         waiter.SetActive(false);
         chat.SetActive(true);
-        wsManager.GetChat();
+        //wsManager.CheckForRoom();
+        //wsManager.GetChat();
+
         //SceneManager.LoadScene("uwu");
     }
 

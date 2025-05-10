@@ -38,9 +38,14 @@ public class Chat : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
 
+            wsManager.GetChat();
+            
+
+            //Debug.Log(wsManager.chatInfo);
+
             for (int indexChatUpdate = 0; indexChatUpdate < wsManager.chatInfo.Length; indexChatUpdate += 4)
             {
-
+                //wsManager.GetChat();
                 GameObject newPrefabChat = prefabChat;
                 newPrefabChat.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate];
                 newPrefabChat.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = wsManager.chatInfo[indexChatUpdate+3];
