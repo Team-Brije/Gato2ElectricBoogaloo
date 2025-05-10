@@ -24,11 +24,11 @@ public class Chat : MonoBehaviour
         Coroutine UCHat = StartCoroutine(UpdateChat());
     }
     public void SendMessage()
-  {
-    string Message = MessageInput.text;
-    string Time = System.DateTime.UtcNow.ToLocalTime().ToString("HH:mm:ss");
-    string Date = System.DateTime.UtcNow.ToLocalTime().ToString("dd/MM/yyyy");
-    wsManager.SendWebSocketMessage("7|" + NameLogic.username+"|"+wsManager.otherPlayer+"|"+ Message +"₡"+ Time+"₡"+Date);
+    {
+        string Message = MessageInput.text;
+        string Time = System.DateTime.UtcNow.ToLocalTime().ToString("HH:mm:ss");
+        string Date = System.DateTime.UtcNow.ToLocalTime().ToString("dd/MM/yyyy");
+        wsManager.SendWebSocketMessage("7|" + NameLogic.username + "|" + wsManager.otherPlayer + "|" + Message + "₡" + Time + "₡" + Date + "|" + wsManager.filedir);
         wsManager.GetChat();
         MessageInput.text = "";
   }

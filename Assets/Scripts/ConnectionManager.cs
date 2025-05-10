@@ -84,7 +84,6 @@ public class ConnectionManager : MonoBehaviour
                     break;
                 case "6":
                     chatInfo = newmessage[1].Split('₡');
-                    Debug.Log(chatInfo.Length);
                     break;
                 case "7":
                     SendMessage = newmessage[1].Split('₡');
@@ -124,8 +123,8 @@ public class ConnectionManager : MonoBehaviour
     [ContextMenu("6")]
     public void GetChat()
     {
-        //SendWebSocketMessage("6|"+filedir);
-        SendWebSocketMessage("6|./Chats/1.json");
+        SendWebSocketMessage("6|"+filedir);
+        //SendWebSocketMessage("6|./Chats/1.json");
     }
 
 
